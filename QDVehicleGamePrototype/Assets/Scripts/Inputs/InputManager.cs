@@ -15,10 +15,13 @@ public class InputManager : MonoBehaviour
     private MouseTracker mouseTracker;
     public MouseTracker MouseTracker{get => mouseTracker;}
 
+    public Vector3 mouseWorldPosition;
+    public Vector2 mouseScreenPosition;
+
     public void Update()
     {
-        MouseTracker.GetScreenPosition();
-        MouseTracker.GetWorldPosition();
+        mouseScreenPosition = MouseTracker.GetScreenPosition();
+        mouseWorldPosition = MouseTracker.GetWorldPosition();
     }
 
 

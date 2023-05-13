@@ -10,7 +10,28 @@ public class PlayerManager : MonoBehaviour
     public Player Player {get => player;}
     [SerializeField]
     private InputManager inputManager;
-    public InputManager InputManger{get => inputManager;}
+    public InputManager InputManger{get{return inputManager;}}
 
+    [SerializeField]
+    private static PlayerManager instance;
+    public static PlayerManager Instance{get => instance;}
 
+    public void Awake()
+    {
+        VerifySingleton();
+    }
+
+    private void VerifySingleton()
+    {
+
+        if(Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+
+        } else
+        {
+            instance = this;
+
+        }
+    }
 }

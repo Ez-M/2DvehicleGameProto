@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6b9ed6076377644a536dea10a9c6a3, type: 3}
   m_Name: MouseTracker
   m_EditorClassIdentifier: 
-  Xpos: 0
-  Ypos: 0
+  ScreenPos: {x: 0, y: 0}
+  WorldPos: {x: -21.375465, y: -10, z: 0}

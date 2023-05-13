@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class MouseTracker : ScriptableObject
 {
     public Vector2 ScreenPos;
-    public Vector2 WorldPos;
+    public Vector3 WorldPos;
 
     // Update is called once per frame
     void Update()
@@ -22,7 +22,7 @@ public class MouseTracker : ScriptableObject
         return ScreenPos; 
     }
 
-    public Vector2 GetWorldPosition()
+    public Vector3 GetWorldPosition()
     {
         WorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         return WorldPos;
