@@ -3,21 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[CreateAssetMenu(fileName = "New MouseTracker", menuName = "Inputs/MouseTracker")]
 public class MouseTracker : ScriptableObject
 {
-    public float Xpos;
-    public float Ypos;
+    public Vector2 ScreenPos;
+    public Vector2 WorldPos;
 
     // Update is called once per frame
     void Update()
     {
-        Xpos = Mouse.current.position.ReadValue().x;
-        Ypos = Mouse.current.position.ReadValue().y;
+
     }
 
-    public Vector2 GetPosition()
+    public Vector2 GetScreenPosition()
     {
-        Vector2 Pos = new Vector2(Xpos, Ypos);
-        return Pos; 
+
+        ScreenPos = Mouse.current.position.ReadValue();
+        return ScreenPos; 
+    }
+
+    public Vector2 GetWorldPosition()
+    {
+        WorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        return WorldPos;
     }
 }

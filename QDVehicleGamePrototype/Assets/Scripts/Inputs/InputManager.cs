@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : ScriptableObject
+public class InputManager : MonoBehaviour
 {
     [SerializeField]
     private Player player;
@@ -14,6 +14,12 @@ public class InputManager : ScriptableObject
     [SerializeField]
     private MouseTracker mouseTracker;
     public MouseTracker MouseTracker{get => mouseTracker;}
+
+    public void Update()
+    {
+        MouseTracker.GetScreenPosition();
+        MouseTracker.GetWorldPosition();
+    }
 
 
 }
