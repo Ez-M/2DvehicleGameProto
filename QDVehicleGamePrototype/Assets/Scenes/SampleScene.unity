@@ -389,7 +389,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484085080}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -397,7 +397,7 @@ Transform:
   - {fileID: 2019770386}
   m_Father: {fileID: 2141530203}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &484085082
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -592,15 +592,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527135765}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1750986580}
   m_Father: {fileID: 1035219028}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &527135767
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1114,7 +1114,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 925222202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bed835d828a3d14db11cfba6713405f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0abc62323e59d6744ab2dd25248de1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gunBarrel: {fileID: 527135765}
@@ -1123,6 +1123,9 @@ MonoBehaviour:
   isFunctional: 1
   playerManager: {fileID: 0}
   lineRenderer: {fileID: 925222205}
+  gunWeight: 10
+  pivotLimit: 45
+  initialRotation: 0
 --- !u!120 &925222205
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1246,7 +1249,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035219027}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1254,7 +1257,7 @@ Transform:
   - {fileID: 527135766}
   m_Father: {fileID: 925222203}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &1035219029
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1477,15 +1480,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2019770385}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 49566755}
   m_Father: {fileID: 484085081}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &2019770387
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1580,7 +1583,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2141530202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bed835d828a3d14db11cfba6713405f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0abc62323e59d6744ab2dd25248de1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gunBarrel: {fileID: 2019770385}
@@ -1589,3 +1592,6 @@ MonoBehaviour:
   isFunctional: 1
   playerManager: {fileID: 0}
   lineRenderer: {fileID: 49566756}
+  gunWeight: 10
+  pivotLimit: 20
+  initialRotation: 0

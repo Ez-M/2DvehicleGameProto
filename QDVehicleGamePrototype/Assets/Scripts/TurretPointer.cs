@@ -2,62 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretPointer : MonoBehaviour
+public class TurretPointer
 {
-    public GameObject gunBarrel;
-    public GameObject gunPivot;
-    public GameObject gunEnd;
-    public bool isFunctional;
-    public PlayerManager playerManager;
-    public LineRenderer lineRenderer;
+    public Transform gunPivot;
 
-    public void Awake()
-    {
-        playerManager = PlayerManager.Instance;
-    }
-    // Start is called before the first frame update
-    public void Start()
-    {
-        playerManager.InputManger.OnShoot += FireGun;
-    }
 
-    // Update is called once per frame
-    public void Update()
-    {
-        PointGun();
-    }
 
-    public void PointGun()
-    {
-        if(isFunctional)
-        {
-            Vector3 targetPos = playerManager.InputManger.mouseWorldPosition;
+public void PointGun(Vector3 _targetPos, float gunWeight, float _pivotLimit, float _initialRotation)
+{
+    Vector3 direction = (_targetPos - gunPivot.position).normalized;
+    float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-            Vector3 direction = (targetPos - gunPivot.transform.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg-90; // removing 90 because my current sprite isn't offset
+    // Adjust the target angle based on the initial rotation
+    float adjustedTargetAngle = targetAngle - _initialRotation;
 
-            gunPivot.transform.eulerAngles = new Vector3(0, 0, angle);
+    // Normalize the adjusted target angle to be within the range of -180 to 180 degrees
+    if (adjustedTargetAngle > 180f)
+        adjustedTargetAngle -= 360f;
+    else if (adjustedTargetAngle < -180f)
+        adjustedTargetAngle += 360f;
 
-        }
-    }
+    // Determine the clamped angle within the turret's firing arc
+    float clampedAngle = Mathf.Clamp(adjustedTargetAngle, -_pivotLimit, _pivotLimit);
 
-    public void FireGun()
-    {
-        float angle = gunPivot.transform.eulerAngles.z+90; // adding 90 because my current sprite isn't offset
+    // Calculate the final target rotation
+    float finalRotation = clampedAngle + _initialRotation;
+    Quaternion targetRotation = Quaternion.Euler(0, 0, finalRotation);
 
-        Vector3 targetDir = Quaternion.Euler(0f, 0f, angle) * Vector2.right;
-        RaycastHit2D hit = Physics2D.Raycast(gunEnd.transform.position, targetDir, 10f);
-        lineRenderer.SetPosition(0, gunEnd.transform.position);
-        if (hit.collider != null)
-        {
-            Debug.Log("Hit target! " + hit.collider.gameObject);
-            lineRenderer.SetPosition(1, hit.point);
-        }
-        else
-        {
-            lineRenderer.SetPosition(1, targetDir*100f);
-        }
-    }
+    // Apply the rotation using Lerp
+    gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, targetRotation, gunWeight * Time.deltaTime);
+}
 
 
 }
