@@ -22,8 +22,11 @@ public class Vehicle : MonoBehaviour
     private Player player;
     private PlayerManager playerManager;
 
-    private GameObject targetMCV;///probably always the player's main vehicle. MCV = main convoy vehicle
+    public GameObject targetMCV;///probably always the player's main vehicle. MCV = main convoy vehicle
 
+    public float verticalSpeed;
+    public float horizontalSpeed;
+    public float minAvoidRange;
     void Awake()
     {
         playerManager = PlayerManager.Instance;
@@ -39,26 +42,39 @@ public class Vehicle : MonoBehaviour
     public void Think()
     {
         CalcualteMoveTarget();
-        CalculateAttackTarget();
+        // CalculateAttackTarget();
     }
 
 
     public void Do()
     {
         MoveTo();
-        Attack();
+        // Attack();
     }
 
 
     private void CalcualteMoveTarget()
     {
-        
+        Vector2 targetPosition = targetMCV.transform.position;
+        Vector2 thisPosition = this.transform.position;
+        Vector2 directionToTarget = targetMCV.transform.position - this.transform.position;
+        float distanceFromTarget = directionToTarget.magnitude;
+
+        if(distanceFromTarget <= minAvoidRange)
+        {
+            // moveTarget = targetPosition + (directionToTarget.normalized*minAvoidRange);
+            moveTarget = thisPosition - (directionToTarget.normalized * (minAvoidRange - distanceFromTarget));
+        }
+        else
+        {
+            moveTarget = targetPosition + (directionToTarget.normalized * minAvoidRange);
+        }
     }
 
     
     private void MoveTo()
     {
-        throw new NotImplementedException();
+        this.transform.position = Vector2.Lerp(this.transform.position, moveTarget, Time.deltaTime*horizontalSpeed);
     }
 
     private void CalculateAttackTarget()

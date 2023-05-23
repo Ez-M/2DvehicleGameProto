@@ -517,6 +517,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 427006848}
+  - component: {fileID: 427006850}
+  - component: {fileID: 427006849}
   m_Layer: 0
   m_Name: EnemyPH
   m_TagString: Untagged
@@ -532,7 +534,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427006847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.05, y: 0, z: -10}
+  m_LocalPosition: {x: 10.05, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -540,6 +542,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &427006849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427006847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e6ccf65a7d1e7438c312b36de640cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &427006850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427006847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff259c6670a77f49b0df267183befa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VehiclePrefab: {fileID: 212675567}
+  health: {fileID: 427006849}
+  isPlayerControlled: 0
+  isFriendly: 0
+  currentTarget: {fileID: 0}
+  moveTarget: {x: 0, y: 0}
+  targetMCV: {fileID: 668147951}
+  verticalSpeed: 0
+  horizontalSpeed: 1
+  minAvoidRange: 10
 --- !u!1 &484085080
 GameObject:
   m_ObjectHideFlags: 0
