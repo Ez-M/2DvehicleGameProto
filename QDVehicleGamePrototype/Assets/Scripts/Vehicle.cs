@@ -3,7 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+public enum Faction
+{
+    Player,
+    NonPlayer
+}
 
 public class Vehicle : MonoBehaviour
 {   //this goes on the empty parent object of the vehicle entity
@@ -15,18 +19,21 @@ public class Vehicle : MonoBehaviour
 
     public bool isPlayerControlled;
     public bool isFriendly;
+    public bool canMove;
 
     public GameObject currentTarget;
 
-    public Vector2 moveTarget;
+    
     private Player player;
     private PlayerManager playerManager;
-
     public GameObject targetMCV;///probably always the player's main vehicle. MCV = main convoy vehicle
+
+    public Vector2 moveTarget;
 
     public float verticalSpeed;
     public float horizontalSpeed;
     public float minAvoidRange;
+    
     void Awake()
     {
         playerManager = PlayerManager.Instance;
@@ -48,7 +55,7 @@ public class Vehicle : MonoBehaviour
 
     public void Do()
     {
-        MoveTo();
+        if(canMove==true){MoveTo();}
         // Attack();
     }
 
@@ -74,12 +81,22 @@ public class Vehicle : MonoBehaviour
     
     private void MoveTo()
     {
-        this.transform.position = Vector2.Lerp(this.transform.position, moveTarget, Time.deltaTime*horizontalSpeed);
+    float horizontalStep = horizontalSpeed * Time.deltaTime;
+    float verticalStep = verticalSpeed * Time.deltaTime;
+
+    Vector2 currentPosition = this.transform.position;
+    Vector2 targetPosition = moveTarget;
+
+    float newX = Mathf.MoveTowards(currentPosition.x, targetPosition.x, horizontalStep);
+    float newY = Mathf.MoveTowards(currentPosition.y, targetPosition.y, verticalStep);
+
+    this.transform.position = new Vector2(newX, newY);
+
     }
 
     private void CalculateAttackTarget()
     {
-        throw new NotImplementedException();
+        // if(currentTarget != null){currentTarget = }
     }
 
     private void Attack()

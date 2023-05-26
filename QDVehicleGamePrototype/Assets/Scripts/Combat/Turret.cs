@@ -16,6 +16,7 @@ public class Turret : MonoBehaviour
     public float gunWeight;
     public int pivotLimit;
     public float initialRotation;
+    public float weaponRange;
 
     void Awake()
     {
@@ -45,11 +46,12 @@ public class Turret : MonoBehaviour
 
     public void FireGun()
     {
-        float angle = gunPivot.transform.eulerAngles.z;
+        float angle = gunPivot.transform.rotation.eulerAngles.z;
+        Quaternion rotationAngle = Quaternion.Euler(0f, 0f, angle);
 
-        Vector3 targetDir = Quaternion.Euler(0f, 0f, angle) * Vector2.right;
-        RaycastHit2D hit = Physics2D.Raycast(gunEnd.transform.position, targetDir, 10f);
-        lineRenderer.SetPosition(0, gunEnd.transform.position);
+        Vector2 targetDir = gunPivot.transform.right.normalized;
+        RaycastHit2D hit = Physics2D.Raycast(gunEnd.transform.position, targetDir, weaponRange);
+        lineRenderer.SetPosition(0, gunPivot.transform.position);
         if (hit.collider != null)
         {
             Debug.Log("Hit target! " + hit.collider.gameObject);
@@ -57,7 +59,7 @@ public class Turret : MonoBehaviour
         }
         else
         {
-            lineRenderer.SetPosition(1, targetDir*100f);
+            lineRenderer.SetPosition(1, (Vector2)gunEnd.transform.position + targetDir * weaponRange);
         }
     }
     
