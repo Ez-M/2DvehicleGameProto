@@ -13,10 +13,12 @@ public class Turret : MonoBehaviour
     public PlayerManager playerManager;
     public LineRenderer lineRenderer;
     public TurretPointer turretPointer;
+    public float initialRotation;
     public float gunWeight;
     public int pivotLimit;
-    public float initialRotation;
     public float weaponRange;
+    public WeaponData weaponData;
+    public float nextShotTime;
 
     void Awake()
     {
@@ -45,7 +47,37 @@ public class Turret : MonoBehaviour
     }
 
     public void FireGun()
+    {   
+        if(Time.time >= nextShotTime)
+        {
+        switch (weaponData.attackType)
+        {
+        case AttackType.hitScan:
+            hitscanAttack(attackSource: this);
+            break;
+        case AttackType.projectile:
+            projectileAttack(attackSource: this);
+            break;
+        case AttackType.area:
+            areaAttack(attackSource: this);
+            break;            
+        }
+
+        nextShotTime = Time.time+(60/weaponData.baseFireRate);
+
+        }
+    }
+
+        void hitscanAttack(Turret attackSource)
     {
+
+        var weaponData = attackSource.weaponData;
+        var gunPivot = attackSource.gunPivot;
+        var lineRenderer = attackSource.lineRenderer;
+        var gunEnd = attackSource.gunEnd;
+        var weaponRange = attackSource.weaponRange;
+
+
         float angle = gunPivot.transform.rotation.eulerAngles.z;
         Quaternion rotationAngle = Quaternion.Euler(0f, 0f, angle);
 
@@ -54,16 +86,31 @@ public class Turret : MonoBehaviour
         lineRenderer.SetPosition(0, gunPivot.transform.position);
         if (hit.collider != null)
         {
-            Debug.Log("Hit target! " + hit.collider.gameObject);
+            // Debug.Log("Hit target! " + hit.collider.gameObject);
+
+            //fire Event Attack(attacker, attackTarget, attackWeapon)
+
             lineRenderer.SetPosition(1, hit.point);
+
+
         }
         else
         {
             lineRenderer.SetPosition(1, (Vector2)gunEnd.transform.position + targetDir * weaponRange);
         }
+
     }
-    
-    
+
+
+    void projectileAttack(Turret attackSource)
+    {
+        throw new NotImplementedException();
+    }
+
+    void areaAttack(Turret attackSource)
+    {
+        throw new NotImplementedException();
+    }
 
 }
 

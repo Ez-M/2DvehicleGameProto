@@ -22,11 +22,11 @@ public class InputManager : MonoBehaviour
 
 
     public event Action OnShoot;
-    public class OnShootEventArgs : EventArgs
-    {
-        public Vector3 gunEndPosition;
-        public Vector3 shootPosition;
-    }
+    // public class OnShootEventArgs : EventArgs
+    // {
+    //     public Vector3 gunEndPosition;
+    //     public Vector3 shootPosition;
+    // }
 
     void Awake()
     {

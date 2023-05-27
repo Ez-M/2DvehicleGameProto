@@ -625,9 +625,11 @@ MonoBehaviour:
   isFunctional: 1
   playerManager: {fileID: 0}
   lineRenderer: {fileID: 535104957}
+  initialRotation: 0
   gunWeight: 10
   pivotLimit: 180
-  initialRotation: 0
+  weaponRange: 0
+  nextShotTime: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,9 +1502,11 @@ MonoBehaviour:
   isFunctional: 1
   playerManager: {fileID: 0}
   lineRenderer: {fileID: 925222205}
-  gunWeight: 10
-  pivotLimit: 45
   initialRotation: 0
+  gunWeight: 10
+  pivotLimit: 180
+  weaponRange: 10
+  nextShotTime: 0
 --- !u!120 &925222205
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1735,7 +1739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1324249363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2197,9 +2201,11 @@ MonoBehaviour:
   isFunctional: 1
   playerManager: {fileID: 0}
   lineRenderer: {fileID: 1817792416}
+  initialRotation: 0
   gunWeight: 10
   pivotLimit: 45
-  initialRotation: 0
+  weaponRange: 0
+  nextShotTime: 0
 --- !u!1 &2019770385
 GameObject:
   m_ObjectHideFlags: 0
@@ -2301,7 +2307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2141530203
 Transform:
   m_ObjectHideFlags: 0
@@ -2336,6 +2342,8 @@ MonoBehaviour:
   isFunctional: 1
   playerManager: {fileID: 0}
   lineRenderer: {fileID: 49566756}
+  initialRotation: 0
   gunWeight: 10
   pivotLimit: 20
-  initialRotation: 0
+  weaponRange: 0
+  nextShotTime: 0
