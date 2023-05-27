@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb964a4bb07c7141a78a781ef5bb004, type: 3}
   m_Name: PHWeapon
   m_EditorClassIdentifier: 
-  purchasePrice: 0
-  baseRepairCost: 0
+  purchasePrice: 1
+  baseRepairCost: 1
   baseMaxDurability: 10
   baseRepairRate: 10
   baseWreckedThreshold: 0

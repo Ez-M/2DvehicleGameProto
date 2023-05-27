@@ -26,9 +26,20 @@ public class Turret : MonoBehaviour
         turretPointer = new TurretPointer();
 
 
-        playerManager.InputManger.OnShoot += FireGun;
 
-        
+
+
+    }
+    
+    void OnEnable()
+    {
+        playerManager.InputManger.PlayerShoot += FireGun;
+
+    }
+
+    void OnDisable()
+    {
+        playerManager.InputManger.PlayerShoot -= FireGun;
 
     }
 
@@ -40,42 +51,66 @@ public class Turret : MonoBehaviour
 
     void Update()
     {
-        if(isFunctional)
+        if (isFunctional)
         {
-        turretPointer.PointGun(playerManager.InputManger.mouseWorldPosition, gunWeight, pivotLimit, initialRotation);
+            turretPointer.PointGun(playerManager.InputManger.mouseWorldPosition, gunWeight, pivotLimit, initialRotation);
         }
     }
+
+    public void OnShootMethod()
+    { }
 
     public void FireGun()
-    {   
-        if(Time.time >= nextShotTime)
+    {
+
+        if (Time.time >= nextShotTime)
         {
-        switch (weaponData.attackType)
-        {
-        case AttackType.hitScan:
-            hitscanAttack(attackSource: this);
-            break;
-        case AttackType.projectile:
-            projectileAttack(attackSource: this);
-            break;
-        case AttackType.area:
-            areaAttack(attackSource: this);
-            break;            
+            switch (weaponData.attackType)
+            {
+                case AttackType.hitScan:
+                    hitscanAttack(attackSource: this);
+                    break;
+                case AttackType.projectile:
+                    projectileAttack(attackSource: this);
+                    break;
+                case AttackType.area:
+                    areaAttack(attackSource: this);
+                    break;
+            }
+
+            nextShotTime = Time.time + (60 / weaponData.baseFireRate);
+
+            if (weaponData.isRapidFire && playerManager.InputManger.fireInputHeld == true)
+            {
+                StartCoroutine(AutoFire());
+            }
         }
 
-        nextShotTime = Time.time+(60/weaponData.baseFireRate);
+    }
 
+
+    private IEnumerator AutoFire()
+    {
+        while (playerManager.InputManger.fireInputHeld == true)
+        {
+            FireGun();
+
+            yield return new WaitForSeconds(nextShotTime - Time.time);
         }
     }
 
-        void hitscanAttack(Turret attackSource)
+
+
+
+    #region  attackTypeMethods
+    void hitscanAttack(Turret attackSource)
     {
 
-        var weaponData = attackSource.weaponData;
-        var gunPivot = attackSource.gunPivot;
-        var lineRenderer = attackSource.lineRenderer;
-        var gunEnd = attackSource.gunEnd;
-        var weaponRange = attackSource.weaponRange;
+        // var weaponData = attackSource.weaponData;
+        // var gunPivot = attackSource.gunPivot;
+        // var lineRenderer = attackSource.lineRenderer;
+        // var gunEnd = attackSource.gunEnd;
+        // var weaponRange = attackSource.weaponRange;
 
 
         float angle = gunPivot.transform.rotation.eulerAngles.z;
@@ -111,6 +146,8 @@ public class Turret : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+
+    #endregion
 
 }
 

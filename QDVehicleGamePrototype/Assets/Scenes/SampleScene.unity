@@ -629,6 +629,13 @@ MonoBehaviour:
   gunWeight: 10
   pivotLimit: 180
   weaponRange: 0
+  weaponData:
+    sourceObjectID: 0
+    baseDamage: 0
+    baseFireRate: 0
+    baseProjectileSpeed: 0
+    baseAttackRange: 0
+    attackType: 0
   nextShotTime: 0
 --- !u!1 &519420028
 GameObject:
@@ -1506,6 +1513,13 @@ MonoBehaviour:
   gunWeight: 10
   pivotLimit: 180
   weaponRange: 10
+  weaponData:
+    sourceObjectID: 0
+    baseDamage: 1
+    baseFireRate: 60
+    baseProjectileSpeed: 0
+    baseAttackRange: 20
+    attackType: 0
   nextShotTime: 0
 --- !u!120 &925222205
 LineRenderer:
@@ -2205,6 +2219,13 @@ MonoBehaviour:
   gunWeight: 10
   pivotLimit: 45
   weaponRange: 0
+  weaponData:
+    sourceObjectID: 0
+    baseDamage: 0
+    baseFireRate: 0
+    baseProjectileSpeed: 0
+    baseAttackRange: 0
+    attackType: 0
   nextShotTime: 0
 --- !u!1 &2019770385
 GameObject:
@@ -2346,4 +2367,11 @@ MonoBehaviour:
   gunWeight: 10
   pivotLimit: 20
   weaponRange: 0
+  weaponData:
+    sourceObjectID: 0
+    baseDamage: 0
+    baseFireRate: 0
+    baseProjectileSpeed: 0
+    baseAttackRange: 0
+    attackType: 0
   nextShotTime: 0

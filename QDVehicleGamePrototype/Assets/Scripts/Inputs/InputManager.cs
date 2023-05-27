@@ -15,13 +15,14 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private MouseTracker mouseTracker;
     public MouseTracker MouseTracker{get => mouseTracker;}
+    public bool fireInputHeld;
 
     public Vector3 mouseWorldPosition;
     public Vector2 mouseScreenPosition;
     public Inputs Inputs;
 
 
-    public event Action OnShoot;
+    public event Action PlayerShoot;
     // public class OnShootEventArgs : EventArgs
     // {
     //     public Vector3 gunEndPosition;
@@ -33,6 +34,7 @@ public class InputManager : MonoBehaviour
         Inputs = new Inputs();
         Inputs.Enable();
         Inputs.Combat.Click.performed += HandleShoot;
+        Inputs.Combat.Click.canceled += HandleShoot;
     }
 
     public void Update()
@@ -43,7 +45,19 @@ public class InputManager : MonoBehaviour
 
     public void HandleShoot(InputAction.CallbackContext ctx)
     {
-        OnShoot.Invoke();
+        if(ctx.performed)
+        {
+            Debug.Log("performed");
+        fireInputHeld = true;
+        PlayerShoot.Invoke();
+        }
+
+        if (ctx.canceled)
+        {
+            Debug.Log("canceled");
+
+            fireInputHeld = false;
+        }
     }
 
 
