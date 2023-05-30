@@ -8,12 +8,18 @@ using UnityEditor;
 [Serializable]
 public class Health : MonoBehaviour
 {
+
+    public bool canDie;
+
+[SerializeField]
+
     private int baseMaxHealth;
     public int BaseMaxhealth{get => baseMaxHealth;}
-
+[SerializeField]
     private int maxHealth;
     public int Maxhealth{get => maxHealth;}
 
+[SerializeField]
     private int currentHealth;
 
     public int CurrentHealth{ get => currentHealth;}
@@ -66,7 +72,11 @@ public class Health : MonoBehaviour
     {
         if(_damage > 0)
         {currentHealth -= _damage;}
+
+
+
         return currentHealth;
+
     }
     public int HealHealth(int _heal)
     {

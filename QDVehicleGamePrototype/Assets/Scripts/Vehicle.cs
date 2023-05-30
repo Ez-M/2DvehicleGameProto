@@ -9,7 +9,7 @@ public enum Faction
     NonPlayer
 }
 
-public class Vehicle : MonoBehaviour
+public class Vehicle : MonoBehaviour, IAttackable
 {   //this goes on the empty parent object of the vehicle entity
 
     public GameObject VehiclePrefab;
@@ -106,10 +106,29 @@ public class Vehicle : MonoBehaviour
 
 
 
-    public void OnDeath()
+    public void IsAttacked(GameObject _attacker, WeaponData _weaponData)
     {
-        Destroy(this.gameObject);
+        var damage = _weaponData.baseDamage;
+        Health.DamageHealth(damage);
+        if(Health.canDie && Health.CurrentHealth <= 0)
+        {
+        
+            string deathMessage =_attacker.name + " has destroyed"  + this.gameObject.name + " with " + damage + " damage";
+            OnDeath(deathMessage);
+        } else 
+        {
+            Debug.Log(_attacker.name + " has done " + damage + " damage to " + this.gameObject.name + "current health is now " + Health.CurrentHealth);
+        }
+
     }
 
+
+
+
+    public void OnDeath(string _deathMessage)
+    {
+        Debug.Log(_deathMessage);
+        Destroy(this.gameObject);
+    }
 
 }

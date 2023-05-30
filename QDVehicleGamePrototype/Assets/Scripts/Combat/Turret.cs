@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : MonoBehaviour, IAttackable
 {
 
     public GameObject gunBarrel;
@@ -121,11 +121,14 @@ public class Turret : MonoBehaviour
         lineRenderer.SetPosition(0, gunPivot.transform.position);
         if (hit.collider != null)
         {
-            // Debug.Log("Hit target! " + hit.collider.gameObject);
 
-            //fire Event Attack(attacker, attackTarget, attackWeapon)
 
             lineRenderer.SetPosition(1, hit.point);
+            var test = hit.collider.transform.root.GetComponent<IAttackable>();
+            if( test != null)
+            {
+                test.IsAttacked(this.gameObject, this.weaponData);
+            }
 
 
         }
@@ -147,7 +150,20 @@ public class Turret : MonoBehaviour
         throw new NotImplementedException();
     }
 
+
+
     #endregion
 
+
+    public void IsAttacked(GameObject _attacker, WeaponData _weaponData)
+    {
+        this.gameObject.GetComponent<Health>().DamageHealth(_weaponData.baseDamage);
+    }
+
+}
+
+public interface IAttackable
+{
+    public void IsAttacked(GameObject _attacker, WeaponData _weaponData);
 }
 

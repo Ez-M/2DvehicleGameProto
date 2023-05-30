@@ -635,6 +635,7 @@ MonoBehaviour:
     baseFireRate: 0
     baseProjectileSpeed: 0
     baseAttackRange: 0
+    isRapidFire: 0
     attackType: 0
   nextShotTime: 0
 --- !u!1 &519420028
@@ -1394,6 +1395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 668147954}
   mouseTracker: {fileID: 11400000, guid: e239a42fb02117d4da3d769fc17384c2, type: 2}
+  fireInputHeld: 0
   mouseWorldPosition: {x: 0, y: 0, z: 0}
   mouseScreenPosition: {x: 0, y: 0}
 --- !u!4 &864819134
@@ -1516,9 +1518,10 @@ MonoBehaviour:
   weaponData:
     sourceObjectID: 0
     baseDamage: 1
-    baseFireRate: 60
+    baseFireRate: 120
     baseProjectileSpeed: 0
     baseAttackRange: 20
+    isRapidFire: 1
     attackType: 0
   nextShotTime: 0
 --- !u!120 &925222205
@@ -2225,6 +2228,7 @@ MonoBehaviour:
     baseFireRate: 0
     baseProjectileSpeed: 0
     baseAttackRange: 0
+    isRapidFire: 0
     attackType: 0
   nextShotTime: 0
 --- !u!1 &2019770385
@@ -2373,5 +2377,6 @@ MonoBehaviour:
     baseFireRate: 0
     baseProjectileSpeed: 0
     baseAttackRange: 0
+    isRapidFire: 0
     attackType: 0
   nextShotTime: 0
