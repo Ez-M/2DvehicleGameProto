@@ -13,6 +13,7 @@ public class Vehicle : MonoBehaviour, IAttackable
 {   //this goes on the empty parent object of the vehicle entity
 
     public GameObject VehiclePrefab;
+    public GameObject VehicleBody;
     [SerializeField]
     private Health health;
     public Health Health { get => health; }
@@ -112,11 +113,14 @@ public class Vehicle : MonoBehaviour, IAttackable
         Health.DamageHealth(damage);
         if(Health.canDie && Health.CurrentHealth <= 0)
         {
-        
+            StopCoroutine(PainEffect());
+            StartCoroutine(PainEffect());
             string deathMessage =_attacker.name + " has destroyed"  + this.gameObject.name + " with " + damage + " damage";
             OnDeath(deathMessage);
         } else 
         {
+            StopCoroutine(PainEffect());
+            StartCoroutine(PainEffect());
             Debug.Log(_attacker.name + " has done " + damage + " damage to " + this.gameObject.name + "current health is now " + Health.CurrentHealth);
         }
 
@@ -129,6 +133,24 @@ public class Vehicle : MonoBehaviour, IAttackable
     {
         Debug.Log(_deathMessage);
         Destroy(this.gameObject);
+    }
+
+    // public void PainEffect()
+    // {
+
+
+    // }
+
+    public IEnumerator PainEffect()
+    {
+      var _sprite =  VehicleBody.GetComponent<SpriteRenderer>();
+      _sprite.color = Color.red;
+      
+        while (_sprite.color.g < 1)
+        {
+            _sprite.color += new Color(0F, 0.2F, 0.2F);
+            yield return new WaitForFixedUpdate();
+        }
     }
 
 }
