@@ -132,3 +132,8 @@ public class Vehicle : MonoBehaviour, IAttackable
     }
 
 }
+
+public interface IAttackable
+{
+    public void IsAttacked(GameObject _attacker, WeaponData _weaponData);
+}

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour, IAttackable
+public class Turret : MonoBehaviour
 {
 
     public GameObject gunBarrel;
@@ -155,15 +155,9 @@ public class Turret : MonoBehaviour, IAttackable
     #endregion
 
 
-    public void IsAttacked(GameObject _attacker, WeaponData _weaponData)
-    {
-        this.gameObject.GetComponent<Health>().DamageHealth(_weaponData.baseDamage);
-    }
+
 
 }
 
-public interface IAttackable
-{
-    public void IsAttacked(GameObject _attacker, WeaponData _weaponData);
-}
+
 
