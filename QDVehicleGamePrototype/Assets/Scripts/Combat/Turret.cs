@@ -11,6 +11,8 @@ public class Turret : MonoBehaviour
     public GameObject gunEnd;
     public bool isFunctional;
     public PlayerManager playerManager;
+    public bool isPlayerControlled;
+    public Vehicle owner;
     public LineRenderer lineRenderer;
     public TurretPointer turretPointer;
     public float initialRotation;
@@ -53,12 +55,22 @@ public class Turret : MonoBehaviour
     {
         if (isFunctional)
         {
-            turretPointer.PointGun(playerManager.InputManger.mouseWorldPosition, gunWeight, pivotLimit, initialRotation);
+            if(isPlayerControlled)
+            {
+                turretPointer.PointGun(playerManager.InputManger.mouseWorldPosition, gunWeight, pivotLimit, initialRotation);
+            } else
+            {
+                Vector3 autoAimTarget = CalculateAutoAimTarget();
+                turretPointer.PointGun(autoAimTarget, gunWeight, pivotLimit, initialRotation);
+            }
         }
     }
 
-    public void OnShootMethod()
-    { }
+    public Vector3 CalculateAutoAimTarget()
+    {
+        throw new NotImplementedException();
+    }
+
 
     public void FireGun()
     {

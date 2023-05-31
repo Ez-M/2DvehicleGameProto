@@ -6,7 +6,8 @@ using UnityEngine;
 public enum Faction
 {
     Player,
-    NonPlayer
+    NonPlayer,
+
 }
 
 public class Vehicle : MonoBehaviour, IAttackable
@@ -17,10 +18,12 @@ public class Vehicle : MonoBehaviour, IAttackable
     [SerializeField]
     private Health health;
     public Health Health { get => health; }
+    public EnemyManager enemyManager;
 
     public bool isPlayerControlled;
     public bool isFriendly;
     public bool canMove;
+    public Faction faction;
 
     public GameObject currentTarget;
 
@@ -38,6 +41,7 @@ public class Vehicle : MonoBehaviour, IAttackable
     void Awake()
     {
         playerManager = PlayerManager.Instance;
+        enemyManager = EnemyManager.Instance;
         player = playerManager.Player;
     }
 
@@ -98,6 +102,18 @@ public class Vehicle : MonoBehaviour, IAttackable
     private void CalculateAttackTarget()
     {
         // if(currentTarget != null){currentTarget = }
+    }
+
+    public void CalculateEnemyVehicles()
+    {
+        Dictionary< GameObject, Faction> _AllVehicles = enemyManager.getAllVehicles();
+        foreach( KeyValuePair<GameObject, Faction> KvP in _AllVehicles)
+        {
+            if(KvP.Value != this.faction) 
+            {   List<GameObject> _EnemyVehicles = new List<GameObject>();
+                _EnemyVehicles.Add(KvP.Key);
+            }
+        }
     }
 
     private void Attack()
