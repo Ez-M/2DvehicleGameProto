@@ -43,6 +43,8 @@ public class Vehicle : MonoBehaviour, IAttackable
         playerManager = PlayerManager.Instance;
         enemyManager = EnemyManager.Instance;
         player = playerManager.Player;
+
+        enemyManager.AddToAllVehicles(this);
     }
 
     private void Update()
@@ -53,14 +55,20 @@ public class Vehicle : MonoBehaviour, IAttackable
 
     public void Think()
     {
-        CalcualteMoveTarget();
+        if(isPlayerControlled != true){CalcualteMoveTarget();}
         // CalculateAttackTarget();
     }
 
 
     public void Do()
     {
-        if(canMove==true){MoveTo();}
+        if(isPlayerControlled != true)
+        {
+            if(canMove==true)
+            {
+                MoveTo();
+            }
+        }
         // Attack();
     }
 
@@ -104,16 +112,18 @@ public class Vehicle : MonoBehaviour, IAttackable
         // if(currentTarget != null){currentTarget = }
     }
 
-    public void CalculateEnemyVehicles()
+    public List<Vehicle> CalculateEnemyVehicles()
     {
-        Dictionary< GameObject, Faction> _AllVehicles = enemyManager.getAllVehicles();
-        foreach( KeyValuePair<GameObject, Faction> KvP in _AllVehicles)
+        var _outputList = new List<Vehicle>();
+        foreach(var item in enemyManager.allVehiclesByID)
         {
-            if(KvP.Value != this.faction) 
-            {   List<GameObject> _EnemyVehicles = new List<GameObject>();
-                _EnemyVehicles.Add(KvP.Key);
+            var _vehicle = item.Key;
+            if(_vehicle.faction != this.faction)
+            {
+                _outputList.Add(_vehicle);
             }
         }
+        return _outputList;
     }
 
     private void Attack()

@@ -68,7 +68,25 @@ public class Turret : MonoBehaviour
 
     public Vector3 CalculateAutoAimTarget()
     {
-        throw new NotImplementedException();
+        var _enemyVehicles = owner.CalculateEnemyVehicles();
+        // List<Vector3> enemyPositions = new List<Vector3>();
+        // List<float> distanceFromEnemies = new List<float>();
+        #nullable enable
+        Vehicle? closestVehicle = null;
+        #nullable disable
+        // float shortestDistance = 1000f;
+        foreach(var vehicle in _enemyVehicles)
+        {
+            var distanceFromVehicle = Vector3.Distance(this.gameObject.transform.position, vehicle.gameObject.transform.position);
+            if(closestVehicle == null || distanceFromVehicle < Vector3.Distance(this.transform.position, closestVehicle.transform.position))
+            {
+                closestVehicle = vehicle;
+            }
+            // distanceFromEnemies.Add(distanceFromVehicle);
+        }
+        
+        return closestVehicle.gameObject.transform.position;
+        // list of all enemy vehicles -> for each vehicle if(Distance(this, _vehicle)) then         -> return _closestVehicle.gameobject.transform.position;
     }
 
 
