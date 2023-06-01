@@ -32,7 +32,7 @@ public class Turret : MonoBehaviour
 
 
     }
-    
+
     void OnEnable()
     {
         playerManager.InputManger.PlayerShoot += FireGun;
@@ -55,38 +55,89 @@ public class Turret : MonoBehaviour
     {
         if (isFunctional)
         {
-            if(isPlayerControlled)
+            if (isPlayerControlled)
             {
                 turretPointer.PointGun(playerManager.InputManger.mouseWorldPosition, gunWeight, pivotLimit, initialRotation);
-            } else
+            }
+            else
             {
-                Vector3 autoAimTarget = CalculateAutoAimTarget();
-                turretPointer.PointGun(autoAimTarget, gunWeight, pivotLimit, initialRotation);
+                Vector3? autoAimTarget = CalculateAutoAimTarget();
+                if(autoAimTarget != null){
+                    turretPointer.PointGun((Vector3)autoAimTarget, gunWeight, pivotLimit, initialRotation);}
             }
         }
     }
 
-    public Vector3 CalculateAutoAimTarget()
+    public Vector3? CalculateAutoAimTarget()
     {
-        var _enemyVehicles = owner.CalculateEnemyVehicles();
-        // List<Vector3> enemyPositions = new List<Vector3>();
-        // List<float> distanceFromEnemies = new List<float>();
-        #nullable enable
-        Vehicle? closestVehicle = null;
-        #nullable disable
-        // float shortestDistance = 1000f;
-        foreach(var vehicle in _enemyVehicles)
+        List<Vehicle> _enemyVehicles = owner.CalculateEnemyVehicles();
+        List<GameObject> _enemyObjects = new List<GameObject>();
+        foreach (Vehicle vehicle in _enemyVehicles)
+        { _enemyObjects.Add(vehicle.gameObject); }
+
+        List<GameObject> _validTargetsByAngle = ValidTargetsByAngle(_enemyObjects);
+
+        GameObject _closestVehicle = ClosestGameObject(_validTargetsByAngle);
+        if(_closestVehicle != null)
         {
-            var distanceFromVehicle = Vector3.Distance(this.gameObject.transform.position, vehicle.gameObject.transform.position);
-            if(closestVehicle == null || distanceFromVehicle < Vector3.Distance(this.transform.position, closestVehicle.transform.position))
-            {
-                closestVehicle = vehicle;
-            }
-            // distanceFromEnemies.Add(distanceFromVehicle);
-        }
+            return _closestVehicle.transform.position;
+        } else {return null;}
         
-        return closestVehicle.gameObject.transform.position;
-        // list of all enemy vehicles -> for each vehicle if(Distance(this, _vehicle)) then         -> return _closestVehicle.gameobject.transform.position;
+    }
+
+    public List<GameObject> ValidTargetsByAngle(List<GameObject> _objectsList)
+    {
+        List<GameObject> _outputList = new List<GameObject>();
+
+        foreach (GameObject _currentObject in _objectsList)
+        {
+            Vector3 _direction = (_currentObject.transform.position - gunPivot.transform.position).normalized;
+            float targetAngle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+
+            // Adjust the target angle based on the initial rotation
+            float adjustedTargetAngle = targetAngle - initialRotation;
+
+            // Normalize the adjusted target angle to be within the range of -180 to 180 degrees
+            if (adjustedTargetAngle > 180f)
+                adjustedTargetAngle -= 360f;
+            else if (adjustedTargetAngle < -180f)
+                adjustedTargetAngle += 360f;
+
+
+
+            if (adjustedTargetAngle < pivotLimit && adjustedTargetAngle > -pivotLimit)
+            {
+                _outputList.Add(_currentObject);
+            }
+        }
+
+
+        return _outputList;
+    }
+
+    public GameObject ClosestGameObject(List<GameObject> _ListObjects)
+    { //this should probably go somewhere else to be honest
+
+#nullable enable
+        GameObject? closestObject = null;
+#nullable disable
+        foreach (var _gameObject in _ListObjects)
+        {
+            var distanceFromObject = Vector3.Distance(this.gameObject.transform.position, _gameObject.transform.position);
+            if (closestObject == null || distanceFromObject < Vector3.Distance(this.transform.position, closestObject.transform.position))
+            {
+                closestObject = _gameObject;
+            }
+        }
+        if (closestObject != null)
+        {
+            return closestObject;
+        }
+        else
+        {
+            return null;
+        }
+
     }
 
 
@@ -155,7 +206,7 @@ public class Turret : MonoBehaviour
 
             lineRenderer.SetPosition(1, hit.point);
             var test = hit.collider.transform.root.GetComponent<IAttackable>();
-            if( test != null)
+            if (test != null)
             {
                 test.IsAttacked(this.gameObject, this.weaponData);
             }
