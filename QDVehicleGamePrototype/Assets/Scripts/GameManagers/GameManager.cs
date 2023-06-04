@@ -34,3 +34,4 @@ public class GameManager : ScriptableObject
         else {Instance = this;}
     }
 }
+ 
