@@ -28,7 +28,6 @@ public class Vehicle : MonoBehaviour, IAttackable
     public GameObject currentTarget;
 
     
-    private Player player;
     private PlayerManager playerManager;
     public GameObject targetMCV;///probably always the player's main vehicle. MCV = main convoy vehicle
 
@@ -37,12 +36,13 @@ public class Vehicle : MonoBehaviour, IAttackable
     public float verticalSpeed;
     public float horizontalSpeed;
     public float minAvoidRange;
-    
+
+
+    #region --Functions--
     void Awake()
     {
         playerManager = PlayerManager.Instance;
         enemyManager = EnemyManager.Instance;
-        player = playerManager.Player;
 
         enemyManager.AddToAllVehicles(this);
     }
@@ -179,9 +179,24 @@ public class Vehicle : MonoBehaviour, IAttackable
         }
     }
 
+    #endregion
+
+
+}
+[Serializable]
+public class VehicleData
+{
+    public int vehicleID;
+    public int chassisID;
+    public float baseMaxHealth;
+    public float currentMaxHealth;
+    public float currentHealth;
+    public bool canMove;
+    public float verticalSpeed;
+    public float horizontalSpeed;
 }
 
 public interface IAttackable
 {
-    public void IsAttacked(GameObject _attacker, WeaponData _weaponData);
+    void IsAttacked(GameObject _attacker, WeaponData _weaponData);
 }
