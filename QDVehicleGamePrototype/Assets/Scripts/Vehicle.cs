@@ -13,11 +13,13 @@ public enum Faction
 public class Vehicle : MonoBehaviour, IAttackable
 {   //this goes on the empty parent object of the vehicle entity
 
+    public VehicleData vehicleData;
+
     public GameObject VehiclePrefab;
     public GameObject VehicleBody;
     [SerializeField]
-    private Health health;
-    public Health Health { get => health; }
+    private Health healthComponent;
+    public Health HealthComponent { get => healthComponent; }
     public EnemyManager enemyManager;
 
     public bool isPlayerControlled;
@@ -136,8 +138,8 @@ public class Vehicle : MonoBehaviour, IAttackable
     public void IsAttacked(GameObject _attacker, WeaponData _weaponData)
     {
         var damage = _weaponData.baseDamage;
-        Health.DamageHealth(damage);
-        if(Health.canDie && Health.CurrentHealth <= 0)
+        HealthComponent.DamageHealth(damage);
+        if(HealthComponent.canDie && HealthComponent.CurrentHealth <= 0)
         {
             StopCoroutine(PainEffect());
             StartCoroutine(PainEffect());
@@ -147,7 +149,7 @@ public class Vehicle : MonoBehaviour, IAttackable
         {
             StopCoroutine(PainEffect());
             StartCoroutine(PainEffect());
-            Debug.Log(_attacker.name + " has done " + damage + " damage to " + this.gameObject.name + "current health is now " + Health.CurrentHealth);
+            Debug.Log(_attacker.name + " has done " + damage + " damage to " + this.gameObject.name + "current health is now " + HealthComponent.CurrentHealth);
         }
 
     }
@@ -161,11 +163,6 @@ public class Vehicle : MonoBehaviour, IAttackable
         Destroy(this.gameObject);
     }
 
-    // public void PainEffect()
-    // {
-
-
-    // }
 
     public IEnumerator PainEffect()
     {
@@ -179,18 +176,30 @@ public class Vehicle : MonoBehaviour, IAttackable
         }
     }
 
+    public void InitializeFromStats(VehicleData _inputData)
+    {
+        vehicleData = _inputData;
+        healthComponent = this.gameObject.AddComponent<Health>();
+        healthComponent.SetBaseHealth(vehicleData.baseMaxHealth);
+        healthComponent.SetMaxHealth(_inputData.currentHealth);
+        healthComponent.SetCurrentHealth(_inputData.currentHealth);
+        canMove = _inputData.canMove;
+        verticalSpeed = _inputData.verticalSpeed;
+        horizontalSpeed = _inputData.horizontalSpeed;
+    }
+
     #endregion
 
 
 }
 [Serializable]
-public class VehicleData
+public struct VehicleData
 {
     public int vehicleID;
     public int chassisID;
-    public float baseMaxHealth;
-    public float currentMaxHealth;
-    public float currentHealth;
+    public int baseMaxHealth;
+    public int currentMaxHealth;
+    public int currentHealth;
     public bool canMove;
     public float verticalSpeed;
     public float horizontalSpeed;
