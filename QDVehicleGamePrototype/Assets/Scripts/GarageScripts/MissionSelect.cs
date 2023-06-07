@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MissionSelect : MonoBehaviour
 {
-    public List<MissionData> Missions;
+    public List<MissionData> missions;
+    public GameObject cardPrefab;
+    public GameObject cardUIArea;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,15 @@ public class MissionSelect : MonoBehaviour
     {
         
     }
+
+    public void GenerateMissionCard(MissionData _missionData)
+    {
+        GameObject newCard = GameObject.Instantiate(cardPrefab, parent: cardUIArea.transform);
+        newCard.GetComponent<MissionCard>().Initialize(_missionData);
+        
+    }
+
+    
 }
 
 public struct MissionData
