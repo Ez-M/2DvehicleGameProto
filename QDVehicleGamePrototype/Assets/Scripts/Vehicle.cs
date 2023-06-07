@@ -196,7 +196,7 @@ public class Vehicle : MonoBehaviour, IAttackable
 public struct VehicleData
 {
     public int vehicleID;
-    public int chassisID;
+    public int chassisID; //The scriptableObject that originates this type of vehicle
     public int baseMaxHealth;
     public int currentMaxHealth;
     public int currentHealth;
