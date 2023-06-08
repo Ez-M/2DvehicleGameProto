@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class MissionCard : MonoBehaviour
 {
     public Image thumbNail;
@@ -11,6 +12,7 @@ public class MissionCard : MonoBehaviour
     public TextMeshProUGUI descriptionText;
     public GameObject inspectButton;
     public MissionData missionData;
+    
 
     public void Initialize(MissionData _missionData)
     {
@@ -18,6 +20,12 @@ public class MissionCard : MonoBehaviour
         titleText.text = _missionData.nameText;
         descriptionText.text = _missionData.descriptionText;
     }
+
+    public void ViewMissionDetailsPanel()
+    {
+        MissionSelect.Instance.ViewMissionDetails(missionData);
+    }
+
 
 
 }

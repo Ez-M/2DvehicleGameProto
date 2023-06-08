@@ -11,8 +11,10 @@ public class MissionDetailsPanel : MonoBehaviour
 
     public void UpdateMissionDetails(MissionData _missionData)
     {
-        titleText = _missionData.nameText;
-        descriptionText = _missionData.descriptionText;
+        titleText.text = _missionData.nameText;
+        descriptionText.text = _missionData.descriptionText;
     }
+
+    
 
 }
