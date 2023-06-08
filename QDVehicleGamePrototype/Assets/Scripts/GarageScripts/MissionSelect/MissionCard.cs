@@ -10,10 +10,14 @@ public class MissionCard : MonoBehaviour
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI descriptionText;
     public GameObject inspectButton;
+    public MissionData missionData;
 
     public void Initialize(MissionData _missionData)
     {
+        missionData = _missionData;
         titleText.text = _missionData.nameText;
         descriptionText.text = _missionData.descriptionText;
     }
+
+
 }
