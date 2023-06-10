@@ -17,6 +17,8 @@ public class Vehicle : MonoBehaviour, IAttackable
 
     public GameObject VehiclePrefab;
     public GameObject VehicleBody;
+
+    public List<Turret>  turretNodes;
     [SerializeField]
     private Health healthComponent;
     public Health HealthComponent { get => healthComponent; }
@@ -176,7 +178,7 @@ public class Vehicle : MonoBehaviour, IAttackable
         }
     }
 
-    public void InitializeFromStats(VehicleData _inputData)
+    public void InitializeFromData(VehicleData _inputData)
     {
         vehicleData = _inputData;
         healthComponent = this.gameObject.AddComponent<Health>();
@@ -203,6 +205,7 @@ public struct VehicleData
     public bool canMove;
     public float verticalSpeed;
     public float horizontalSpeed;
+    public List<WeaponData> weaponsDataList;
 }
 
 public interface IAttackable
