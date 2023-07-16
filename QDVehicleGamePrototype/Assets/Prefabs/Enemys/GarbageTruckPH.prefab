@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7378042142880591092}
   - component: {fileID: 7378042142880591095}
   m_Layer: 0
-  m_Name: EnemyPH
+  m_Name: GarbageTruckPH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,17 +46,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff259c6670a77f49b0df267183befa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicleData:
+    vehicleID: 0
+    chassisID: 0
+    baseMaxHealth: 0
+    currentMaxHealth: 0
+    currentHealth: 0
+    canMove: 0
+    verticalSpeed: 0
+    horizontalSpeed: 0
+    weaponsDataList: []
   VehiclePrefab: {fileID: 7378042143238839449}
-  health: {fileID: 7378042142880591095}
+  VehicleBody: {fileID: 0}
+  turretNodes: []
+  healthComponent: {fileID: 0}
+  enemyManager: {fileID: 0}
   isPlayerControlled: 0
   isFriendly: 0
-  canMove: 1
+  canMove: 0
+  faction: 0
   currentTarget: {fileID: 0}
   targetMCV: {fileID: 0}
   moveTarget: {x: 0, y: 0}
   verticalSpeed: 0
-  horizontalSpeed: 1
-  minAvoidRange: 10
+  horizontalSpeed: 0
+  minAvoidRange: 0
 --- !u!114 &7378042142880591095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +83,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e6ccf65a7d1e7438c312b36de640cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDie: 0
+  baseMaxHealth: 0
+  maxHealth: 0
+  currentHealth: 0
 --- !u!1 &7378042143238839449
 GameObject:
   m_ObjectHideFlags: 0

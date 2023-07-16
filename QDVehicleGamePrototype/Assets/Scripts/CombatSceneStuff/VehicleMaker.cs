@@ -36,30 +36,12 @@ public class VehicleMaker : MonoBehaviour
         return newVehicle;
     }
 
-}
-
-public class ChassisDatabase: ScriptableObject
-{
-    public static List<GameObject> chassisPrefabs;
-
-    public static GameObject GetChassisFromID(int _chassisID)
+    public Vehicle InstantiateVehicleFromData(VehicleData _vehicleData, Vector2 _spawnAt)
     {
-        return chassisPrefabs[_chassisID];
+        GameObject _proposedPrefab = ChassisDatabase.Instance.GetChassisFromID(_vehicleData.chassisID);
+        GameObject _newObject = Instantiate(original: _proposedPrefab, position: _spawnAt, rotation: Quaternion.identity);
+        Vehicle _newVehicle = _newObject.GetComponent<Vehicle>();
+        return _newVehicle;
     }
-    private static ChassisDatabase instance;
-    public static ChassisDatabase Instance{get => instance;}
 
-    private void VerifySingleton()
-    {
-
-        if(Instance != null && Instance != this)
-        {
-            Destroy(this);
-
-        } else
-        {
-            instance = this;
-
-        }
-    }
 }
