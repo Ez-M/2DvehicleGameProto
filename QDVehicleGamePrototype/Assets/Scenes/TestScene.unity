@@ -1977,7 +1977,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 668147953}
-  - component: {fileID: 668147954}
   - component: {fileID: 668147956}
   - component: {fileID: 668147955}
   m_Layer: 0
@@ -2005,20 +2004,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &668147954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668147951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e85137d8e624e4d4e92f029375950bd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 0}
-  health: {fileID: 668147955}
 --- !u!114 &668147955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2328,7 +2313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543c154d156f7ed40a63a836f79ded99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 668147954}
+  player: {fileID: 0}
   mouseTracker: {fileID: 11400000, guid: e239a42fb02117d4da3d769fc17384c2, type: 2}
   fireInputHeld: 0
   mouseWorldPosition: {x: 0, y: 0, z: 0}
@@ -2408,7 +2393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8bcb1554ba87174bb54292aa0cf9fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 668147954}
+  player: {fileID: 0}
   inputManager: {fileID: 864819133}
 --- !u!4 &892538311
 Transform:
